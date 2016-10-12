@@ -16,7 +16,7 @@ public class Main {
         Statement stmt = conn.createStatement();
 
         stmt.execute("CREATE TABLE IF NOT EXISTS players (id IDENTITY, name VARCHAR, health DOUBLE, is_alive BOOLEAN, score INT)");
-        //only runs once, otherwise gets error because already ran
+        //only runs once, otherwise gets error because already ran. this is hardcoded
         stmt.execute("INSERT INTO players VALUES (NULL, 'Bob', 7.5, true, 50)");
         stmt.execute("UPDATE players SET health = 10.0 WHERE name ='Bob'");
         stmt.execute("DELETE FROM players WHERE name = 'Bob'");
@@ -36,12 +36,12 @@ public class Main {
         stmt2.setDouble(2, 10.0);
         stmt2.execute();
 
-        ResultSet results = stmt.executeQuery("SELECT * FROM players"); //result set to return values
+        ResultSet results = stmt.executeQuery("SELECT * FROM players"); //result set to return values bu using execute query
         while (results.next()) {  //while results, keep going
             String name = results.getString("name");
             double health = results.getDouble("health");
             int score = results.getInt("score");
-            System.out.printf("%s, %s, %s\n", name, health, score);
+            System.out.printf("%s, %s, %s\n", name, health, score); // /n for new line
 
         }
         stmt.execute("DROP TABLE players"); //kills table at end
@@ -73,7 +73,7 @@ public class Main {
         //String name = "Alice";
         PreparedStatement stmt2 = conn.prepareStatement("INSERT INTO players VALUES (DEFAULT, ?, ?, true, 50)");
         //set individually
-        stmt2.setString(1, "Alice"); //can do (1, name) 1 for first ? mark
+        stmt2.setString(1, "Alice"); //can do (1, name) 1 for first ? mark - not position in list
         stmt2.setDouble(2, 10.0);
         stmt2.execute();
 
